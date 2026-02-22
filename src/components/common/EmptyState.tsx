@@ -1,11 +1,13 @@
+import styles from './Common.module.css';
+
 export default function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center h-64 gap-4">
-         <h1>✈️ No flights found</h1>
-         <p className="text-gray-600 text-sm">
-          Try adjusting your filters
+    <div className={styles.stateContainer}>
+      <span className={styles.emptyIcon}>✈️</span>
+      <h3 className={styles.emptyTitle}>No flights found</h3>
+      <p className={styles.emptySubtext}>
+        Try adjusting your filters or search criteria
       </p>
-
     </div>
   );
 }
