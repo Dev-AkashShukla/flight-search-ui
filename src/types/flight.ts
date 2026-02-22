@@ -10,7 +10,7 @@ export interface RawflightData {
         sectors: Record<string, Record<string, RawflightOption>>;
         searchQuery: SearchQuery;
         metaData: MetaData;
-         }
+        }
     }
 }
 
@@ -64,17 +64,18 @@ export interface RawflightOption{
 
 export interface FlightSegment{
     sequence: number;
-                flightId: string;
-                fltNo: string;
-                airlineCode: string;
-               departureAirport: {
-  code: string;   time: string; 
-               };
-               arrivalAirport: {
-                code: string;  
-                 time: string;
-               };
- durationInMin: number;
+    flightId: string;
+    fltNo: string;
+    airlineCode: string;
+    departureAirport: {
+        code: string;   
+        time: string; 
+    };
+    arrivalAirport: {
+        code: string;  
+        time: string;
+    };
+    durationInMin: number;
 }
 
 export interface Fare {
@@ -88,7 +89,7 @@ export interface Fare {
 }
 
 
-//JSon Flattend to use in ui 
+// Flattend  Json to use in ui 
 
 export interface Flight {
   id: string;
@@ -119,7 +120,7 @@ export interface Filter{
     returnDate: string;
     departureDate: string;
     totalPassengers: number;
-    departureTimeRange: [number, number]; // [0, 24] — hours
+    departureTimeRange: [number, number]; 
 }
 
 

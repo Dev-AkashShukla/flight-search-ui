@@ -84,11 +84,14 @@ return {
 }
 
 
-// Mock API call
-export async function fetchFlights() {
+export async function fetchFlights(): Promise<{
+    outbound: Flight[];
+    returnFlights: Flight[];
+    searchQuery: any;
+}> {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(flattenFlights());
-        }, 1000);
+        }, 800);
     });
 }
