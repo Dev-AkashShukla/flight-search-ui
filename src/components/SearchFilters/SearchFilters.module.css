@@ -1,0 +1,180 @@
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  padding: 1.25rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: fit-content;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.divider {
+  height: 1px;
+  background: #f3f4f6;
+  margin: 0;
+}
+
+/* inputs */
+.input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.inputSmall {
+  composes: input;
+  width: 100px;
+}
+
+.select {
+  composes: input;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+/* checkbox row */
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.checkRow input[type='checkbox'] {
+  accent-color: #2563eb;
+}
+
+/* radio row */
+.radioRow {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.radioLabel input[type='radio'] {
+  accent-color: #2563eb;
+}
+
+/* range slider */
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rangeValues {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+.slider {
+  width: 100%;
+  accent-color: #2563eb;
+}
+
+/* reset button */
+.resetBtn {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background: #ffffff;
+  color: #6b7280;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.resetBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+/* mobile toggle */
+.mobileToggle {
+  display: none;
+  padding: 0.6rem 1rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* desktop: always show filters body */
+.filtersBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.filtersBodyOpen {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+  }
+
+  .mobileToggle {
+    display: block;
+  }
+
+  .filtersBody {
+    display: none;
+  }
+
+  .filtersBodyOpen {
+    display: flex;
+  }
+}
