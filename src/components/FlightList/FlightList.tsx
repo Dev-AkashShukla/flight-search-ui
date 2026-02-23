@@ -1,9 +1,11 @@
-import { useState } from 'react';
 import { useFlightContext } from '@/context/FlightContext';
 import FlightCard from '@/components/FlightCard/FlightCard';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import EmptyState from '@/components/common/EmptyState';
 import ErrorState from '@/components/common/ErrorState';
+import styles from './FlightList.module.css';
+
+const FLIGHTS_PER_PAGE = 10;
 
 export default function FlightList() {
   const {
@@ -12,50 +14,60 @@ export default function FlightList() {
     isLoading,
     error,
     activeJourney,
+    currentPage,
+    setCurrentPage,
+    retryFetch,
   } = useFlightContext();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const flightsPerPage = 10;
+  // pick which list to show
+  const flights = activeJourney === 'outbound' ? filteredOutbound : filteredReturn;
 
-  const flightsToShow = activeJourney === 'outbound' ? filteredOutbound : filteredReturn;
-   
-  const totalPages = Math.ceil(flightsToShow.length / flightsPerPage);
-  const startIndex = (currentPage - 1) * flightsPerPage;
-  const currentFlights = flightsToShow.slice(startIndex, startIndex + flightsPerPage);  
+  const totalPages = Math.ceil(flights.length / FLIGHTS_PER_PAGE);
+  const startIdx = (currentPage - 1) * FLIGHTS_PER_PAGE;
+  const currentFlights = flights.slice(startIdx, startIdx + FLIGHTS_PER_PAGE);
 
+  // ---- States ----
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorState message={error} />;
-  if (flightsToShow.length === 0) return <EmptyState />;
+  if (error) return <ErrorState message={error} onRetry={retryFetch} />;
+  if (flights.length === 0) return <EmptyState />;
 
   return (
-    <div className="flex flex-col gap-4">
-      {currentFlights.map(flight => (
-        <FlightCard 
-        key={flight.id} 
-        flight={flight} 
-        onSelect={() => alert(`Selected flight ID: ${flight.id}`)} />
+    <div className={styles.container}>
+      <div className={styles.resultCount}>
+        Showing {startIdx + 1}–{Math.min(startIdx + FLIGHTS_PER_PAGE, flights.length)} of{' '}
+        {flights.length} flights
+      </div>
+
+      {currentFlights.map((flight) => (
+        <FlightCard
+          key={flight.id}
+          flight={flight}
+          onSelect={(id) => alert(`Selected: ${id}`)}
+        />
       ))}
 
-        {/* Pagination Controls */} 
-        <div className="flex justify-center gap-2 mt-4">
-          <button 
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          <button
+            className={styles.pageBtn}
+            onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
-            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
           >
-            Previous
+            ← Prev
           </button>
-          <span className="px-3 py-1">
+          <span className={styles.pageInfo}>
             Page {currentPage} of {totalPages}
-            </span>
-            <button
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          </span>
+          <button
+            className={styles.pageBtn}
+            onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
-            >
-            Next
-            </button>
+          >
+            Next →
+          </button>
         </div>
+      )}
     </div>
-    );
+  );
 }

@@ -1,0 +1,179 @@
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* airline section (left) */
+.airlineSection {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 140px;
+}
+
+.airlineLogo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.airlineName {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #1f2937;
+}
+
+.flightNumber {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* time section (middle) */
+.timeSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.timeBlock {
+  text-align: center;
+}
+
+.time {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.code {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* route line between departure and arrival */
+.routeLine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+}
+
+.duration {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  background: #d1d5db;
+  position: relative;
+}
+
+.stops {
+  font-size: 0.7rem;
+  color: #2563eb;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.nonstop {
+  color: #16a34a;
+}
+
+/* price section (right) */
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 120px;
+  gap: 0.25rem;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.perPerson {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+.fareTag {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.fareTagNonRefund {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.selectBtn {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.selectBtn:hover {
+  background: #1d4ed8;
+}
+
+/* stop codes tooltip */
+.stopCodes {
+  font-size: 0.65rem;
+  color: #9ca3af;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .timeSection {
+    justify-content: space-between;
+  }
+
+  .priceSection {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
