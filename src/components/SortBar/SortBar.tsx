@@ -1,60 +1,65 @@
 'use client';
 import { useFlightContext } from '@/context/FlightContext';
-import { SortOption } from '@/types/flight'
+import { SortOption } from '@/types/flight';
+import styles from './SortBar.module.css';
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: 'price-asc',      label: 'Price: Low → High' },
+  { value: 'price-desc',     label: 'Price: High → Low' },
+  { value: 'duration-asc',   label: 'Duration: Shortest' },
+  { value: 'duration-desc',  label: 'Duration: Longest' },
+  { value: 'departure-asc',  label: 'Departure: Earliest' },
+  { value: 'departure-desc', label: 'Departure: Latest' },
+];
 
 export default function SortBar() {
-  const { 
-    sortBy, 
-    setSortBy, 
-    activeJourney, 
-    setActiveJourney, 
-    filteredOutbound, 
-    filteredReturn 
-} = useFlightContext();
-    const options: { value: SortOption; label: string }[] = [
-    { value: 'price-asc', label: 'Price: Low to High' },
-    { value: 'price-desc', label: 'Price: High to Low' },
-    { value: 'duration-asc', label: 'Duration: Short to Long' },
-    { value: 'duration-desc', label: 'Duration: Long to Short' },
-    { value: 'departure-asc', label: 'Departure: Earliest First' },
-    { value: 'departure-desc', label: 'Departure: Latest First' },
-  ];
+  const {
+    sortBy,
+    setSortBy,
+    activeJourney,
+    setActiveJourney,
+    filteredOutbound,
+    filteredReturn,
+  } = useFlightContext();
 
   return (
-    <div className="flex items-center justify-between mb-4">
-      <div>
+    <div className={styles.bar}>
+      {/* Journey Tabs */}
+      <div className={styles.journeyTabs}>
         <button
-            onClick={() => setActiveJourney('outbound')}
-            className={`px-4 py-2 rounded ${activeJourney === 'outbound' ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}
+          className={activeJourney === 'outbound' ? styles.tabActive : styles.tab}
+          onClick={() => setActiveJourney('outbound')}
         >
-            Outbound ({filteredOutbound.length})
+          Outbound
+          <span className={styles.tabCount}>({filteredOutbound.length})</span>
         </button>
         <button
-            onClick={() => setActiveJourney('return')}
-            className={`ml-2 px-4 py-2 rounded ${activeJourney === 'return' ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}
-            >
-            Return ({filteredReturn.length})
-            </button>
-        </div>
-        <div className="flex items-center">
-        <select
-            id="sort"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={activeJourney === 'return' ? styles.tabActive : styles.tab}
+          onClick={() => setActiveJourney('return')}
         >
-            {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                    {option.label}
-                </option>
-            ))}
-        </select>
-        </div>
-        <label htmlFor="sort" className="mr-2 text-sm font-medium text-gray-700">
-            Sort By:
+          Return
+          <span className={styles.tabCount}>({filteredReturn.length})</span>
+        </button>
+      </div>
+
+      {/* Sort Dropdown - label BEFORE select */}
+      <div className={styles.sortSection}>
+        <label className={styles.sortLabel} htmlFor="sortSelect">
+          Sort by:
         </label>
+        <select
+          id="sortSelect"
+          className={styles.sortSelect}
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as SortOption)}
+        >
+          {SORT_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
-);  
-
+  );
 }
-
